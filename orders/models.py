@@ -9,4 +9,4 @@ class Order(models.Model):
     time = models.DateTimeField(auto_now_add=True)
     
     def __str__(self):
-        return f"Order #{self.id} for {self.customer.name}"
+        return f"Order {self.id} for {self.customer.name}"
