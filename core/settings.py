@@ -9,7 +9,6 @@ https://docs.djangoproject.com/en/5.2/topics/settings/
 For the full list of settings and their values, see
 https://docs.djangoproject.com/en/5.2/ref/settings/
 """
-
 from pathlib import Path
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -41,6 +40,7 @@ INSTALLED_APPS = [
     'rest_framework',
     'customers',
     'orders',
+    'mozilla_django_oidc'
 ]
 
 MIDDLEWARE = [
@@ -124,3 +124,28 @@ STATIC_URL = 'static/'
 # https://docs.djangoproject.com/en/5.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+AUTHENTICATION_BACKENDS = [
+    'mozilla_django_oidc.auth.OIDCAuthenticationBackend',
+    'django.contrib.auth.backends.ModelBackend',
+]
+REST_FRAMEWORK = {
+    'DEFAULT_AUTHENTICATION_CLASSES': [
+        'mozilla_django_oidc.contrib.drf.OIDCAuthentication', 
+        'rest_framework.authentication.SessionAuthentication',
+    ],
+    'DEFAULT_PERMISSION_CLASSES': [
+        'rest_framework.permissions.IsAuthenticated',
+    ]
+}
+
+# OIDC Configuration
+OIDC_RP_CLIENT_ID = 'kVMOep5Y41TfEJF5trxkrbMTG6fYJeFr'
+OIDC_RP_CLIENT_SECRET = '8hUoUSEgP6CeWKL4dMlmChXJJeJddLMHFDmbuzazUKFpPnmxiMDbAHRSU5unnFfG'
+OIDC_OP_AUTHORIZATION_ENDPOINT = 'https://dev-pck0rdk61056rqec.us.auth0.com/authorize'
+OIDC_OP_TOKEN_ENDPOINT = 'https://dev-pck0rdk61056rqec.us.auth0.com/oauth/token'
+OIDC_OP_USER_ENDPOINT = 'https://dev-pck0rdk61056rqec.us.auth0.com/userinfo'
+OIDC_OP_JWKS_ENDPOINT = 'https://dev-pck0rdk61056rqec.us.auth0.com/.well-known/jwks.json'
+OIDC_RP_AUDIENCE = 'https://api.order-service.com'
+OIDC_RP_SCOPES = 'openid profile email'
+OIDC_RP_SIGN_ALGO = 'RS256'
