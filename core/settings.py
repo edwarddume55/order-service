@@ -10,6 +10,7 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/5.2/ref/settings/
 """
 from pathlib import Path
+import os
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -140,12 +141,12 @@ REST_FRAMEWORK = {
 }
 
 # OIDC Configuration
-OIDC_RP_CLIENT_ID = 'kVMOep5Y41TfEJF5trxkrbMTG6fYJeFr'
-OIDC_RP_CLIENT_SECRET = '8hUoUSEgP6CeWKL4dMlmChXJJeJddLMHFDmbuzazUKFpPnmxiMDbAHRSU5unnFfG'
-OIDC_OP_AUTHORIZATION_ENDPOINT = 'https://dev-pck0rdk61056rqec.us.auth0.com/authorize'
-OIDC_OP_TOKEN_ENDPOINT = 'https://dev-pck0rdk61056rqec.us.auth0.com/oauth/token'
-OIDC_OP_USER_ENDPOINT = 'https://dev-pck0rdk61056rqec.us.auth0.com/userinfo'
-OIDC_OP_JWKS_ENDPOINT = 'https://dev-pck0rdk61056rqec.us.auth0.com/.well-known/jwks.json'
-OIDC_RP_AUDIENCE = 'https://api.order-service.com'
+OIDC_RP_CLIENT_ID = os.getenv('OIDC_RP_CLIENT_ID')
+OIDC_RP_CLIENT_SECRET = os.getenv('OIDC_RP_CLIENT_SECRET')
+OIDC_OP_AUTHORIZATION_ENDPOINT = os.getenv('OIDC_OP_AUTHORIZATION_ENDPOINT')
+OIDC_OP_TOKEN_ENDPOINT = os.getenv('OIDC_OP_TOKEN_ENDPOINT')
+OIDC_OP_USER_ENDPOINT = os.getenv('OIDC_OP_USER_ENDPOINT')
+OIDC_OP_JWKS_ENDPOINT = os.getenv('OIDC_OP_JWKS_ENDPOINT')
+OIDC_RP_AUDIENCE = os.getenv('OIDC_RP_AUDIENCE')
 OIDC_RP_SCOPES = 'openid profile email'
 OIDC_RP_SIGN_ALGO = 'RS256'
