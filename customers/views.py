@@ -5,6 +5,6 @@ from .models import Customer
 from .serializers import CustomerSerializer
 
 class CustomerViewSet(viewsets.ModelViewSet):
-    # permission_classes = [IsAuthenticated]
+    permission_classes = [IsAuthenticated]
     queryset = Customer.objects.all()
     serializer_class = CustomerSerializer
