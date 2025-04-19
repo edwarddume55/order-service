@@ -163,3 +163,7 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 # OIDC_RP_AUDIENCE = os.getenv('OIDC_RP_AUDIENCE')
 # OIDC_RP_SCOPES = 'openid profile email'
 # OIDC_RP_SIGN_ALGO = 'RS256'
+
+
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
+STATIC_URL = '/static/'
