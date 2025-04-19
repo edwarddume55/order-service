@@ -1,0 +1,23 @@
+services:
+  - type: web
+    name: order-service-app
+    env: python
+    region: virginia 
+    buildCommand: "pip install -r requirements.txt && python manage.py migrate"
+    startCommand: "gunicorn core.wsgi:application" 
+    envVars:
+      - key: DATABASE_URL
+        value: "postgresql://orderservice_yqkx_user:wifFmwFfNksx2xpmucL9EVGJ0O5llO7m@dpg-d00ejc7gi27c73b74k5g-a.virginia-postgres.render.com:5432/orderservice_yqkx"
+      - key: SECRET_KEY
+        generateValue: true
+      - key: DEBUG
+        value: "False" 
+      - key: ALLOWED_HOSTS
+        value: "order-service-app.onrender.com" 
+
+databases:
+  - name: orderservice-db 
+    databaseName: orderservice_yqkx  
+    user: orderservice_yqkx_user 
+    region: virginia 
+    plan: free 
