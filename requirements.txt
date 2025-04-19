@@ -6,7 +6,7 @@ djangorestframework==3.14.0
 psycopg2-binary==2.9.7
 
 # SMS
-africastalking==3.0.0
+africastalking==1.2.9
 
 # Authentication
 mozilla-django-oidc==3.0.0
