@@ -73,7 +73,7 @@ def send_sms_notification(order):
         response = sms.send(message, [formatted_phone])
         logger.info(f"SMS sent to {formatted_phone}. Response: {response}")
         
-        # Check if SMS was successfully sent
+        # Check if successfully sent
         if (response['SMSMessageData']['Recipients'][0]['statusCode'] in [101, 102]):
             return True, response
         else:

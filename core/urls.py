@@ -27,5 +27,5 @@ router.register(r'orders', order_views.OrderViewSet)
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('api/', include(router.urls)),
+    path('', include(router.urls)),
 ]
