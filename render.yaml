@@ -9,7 +9,7 @@ services:
       pip install -r requirements.txt
       python manage.py migrate
       python manage.py collectstatic --noinput  # Critical for static files
-    startCommand: "gunicorn core.wsgi:application --workers 2" 
+    startCommand: "gunicorn customer_order_service.wsgi:application --workers 2" 
     envVars:
       - key: DATABASE_URL
         value: "postgresql://orderservice_yqkx_user:wifFmwFfNksx2xpmucL9EVGJ0O5llO7m@dpg-d00ejc7gi27c73b74k5g-a.virginia-postgres.render.com:5432/orderservice_yqkx"
