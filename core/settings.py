@@ -43,7 +43,8 @@ INSTALLED_APPS = [
     'rest_framework',
     'customers',
     'orders',
-    'mozilla_django_oidc'
+    'mozilla_django_oidc',
+    'django_extensions',
 ]
 
 MIDDLEWARE = [
@@ -166,3 +167,10 @@ OIDC_RP_SIGN_ALGO = 'RS256'
 
 
 
+#for production
+CSRF_COOKIE_SECURE = True
+SESSION_COOKIE_SECURE = True
+SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
+
+# Token expiration
+OIDC_RENEW_ID_TOKEN_EXPIRY_SECONDS = 3600 

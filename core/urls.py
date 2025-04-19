@@ -26,6 +26,8 @@ router.register(r'customers', customer_views.CustomerViewSet)
 router.register(r'orders', order_views.OrderViewSet)
 
 urlpatterns = [
+    path('oidc/', include('mozilla_django_oidc.urls')),
     path('admin/', admin.site.urls),
     path('', include(router.urls)),
+
 ]
