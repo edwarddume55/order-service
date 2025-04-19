@@ -3,19 +3,19 @@ services:
     name: order-service-app
     env: python
     python:
-      version: "3.9.16"
+      version: "3.9.16"  
     region: virginia
     buildCommand: |
       pip install --upgrade pip
       pip install -r requirements.txt
       python manage.py migrate
       python manage.py collectstatic --noinput
-    startCommand: "gunicorn core.wsgi:application --workers 2"
-    healthCheckPath: /health/
-    healthCheckIntervalSeconds: 30
+    startCommand: "gunicorn core.wsgi:application --workers 2" 
     envVars:
       - key: DATABASE_URL
-        value: "postgresql://orderservice_yqkx_user:wifFmwFfNksx2xpmucL9EVGJ0O5llO7m@dpg-d00ejc7gi27c73b74k5g-a.virginia-postgres.render.com:5432/orderservice_yqkx"
+        fromDatabase:
+          name: orderservice-db
+          property: connectionString
       - key: SECRET_KEY
         generateValue: true
       - key: DEBUG
@@ -24,5 +24,12 @@ services:
         value: ".onrender.com"
       - key: CSRF_TRUSTED_ORIGINS
         value: "https://order-service-app.onrender.com"
-      - key: DJANGO_SETTINGS_MODULE
+      - key: DJANGO_SETTINGS_MODULE  
         value: "core.settings"
+
+databases:
+  - name: orderservice-db
+    databaseName: orderservice_yqkx
+    user: orderservice_yqkx_user
+    region: virginia
+    plan: free
