@@ -8,12 +8,10 @@ services:
       pip install -r requirements.txt
       python manage.py migrate
       python manage.py collectstatic --noinput
-    startCommand: "gunicorn core.wsgi:application --workers 2" 
+    startCommand: "gunicorn core.wsgi:application --workers 2"
     envVars:
       - key: DATABASE_URL
-        fromDatabase:
-          name: orderservice-db
-          property: connectionString
+        value: "postgresql://orderservice_yqkx_user:your-password@your-existing-db-host:5432/orderservice_yqkx"
       - key: SECRET_KEY
         generateValue: true
       - key: DEBUG
@@ -22,12 +20,5 @@ services:
         value: ".onrender.com"
       - key: CSRF_TRUSTED_ORIGINS
         value: "https://order-service-app.onrender.com"
-      - key: DJANGO_SETTINGS_MODULE  
+      - key: DJANGO_SETTINGS_MODULE
         value: "core.settings"
-
-databases:
-  - name: orderservice-db
-    databaseName: orderservice_yqkx
-    user: orderservice_yqkx_user
-    region: virginia
-    plan: free
