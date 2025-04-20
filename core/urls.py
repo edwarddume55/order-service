@@ -20,14 +20,16 @@ from django.urls import path, include
 from rest_framework.routers import DefaultRouter
 from customers import views as customer_views
 from orders import views as order_views
+from core import views
 
 router = DefaultRouter()
 router.register(r'customers', customer_views.CustomerViewSet)
 router.register(r'orders', order_views.OrderViewSet)
 
 urlpatterns = [
+    path('', views.redirect_to_oidc), 
     path('oidc/', include('mozilla_django_oidc.urls')),
     path('admin/', admin.site.urls),
-    path('', include(router.urls)),
+    path('api/', include(router.urls)),
 
 ]
