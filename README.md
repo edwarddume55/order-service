@@ -14,6 +14,7 @@ A Django REST API for managing customers and orders with SMS notifications.
 
 - Python 3.9+
 - PostgreSQL
+- Docker(optional)
 
 ## Setup
 

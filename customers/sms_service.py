@@ -26,7 +26,6 @@ def initialize_africastalking():
         logger.error(f"Failed to initialize Africa's Talking: {str(e)}")
         raise
 
-# Initialize once when module loads
 try:
     sms = initialize_africastalking()
 except Exception as e:
@@ -37,8 +36,7 @@ def format_phone_number(phone_number):
     """Format phone number to E.164 format (+254...)"""
     # Remove all non-digit characters
     digits = re.sub(r'[^\d]', '', phone_number)
-    
-    # Handle Kenyan numbers
+
     if digits.startswith('0') and len(digits) == 9:
         return f"+254{digits[1:]}"
     elif digits.startswith('254') and len(digits) == 12:
@@ -46,7 +44,6 @@ def format_phone_number(phone_number):
     elif digits.startswith('7') and len(digits) == 9:
         return f"+254{digits}"
     
-    # Return as-is if already in E.164 format
     if digits.startswith('+254') and len(digits) == 13:
         return digits
     
@@ -63,13 +60,10 @@ def send_sms_notification(order):
         return False, error_msg
     
     try:
-        # Validate and format phone number
         formatted_phone = format_phone_number(order.customer.phone_number)
-        
-        # Create message
+
         message = f"Hello {order.customer.name}, your order for {order.item} (Ksh {order.amount}) has been received."
-        
-        # Send SMS
+
         response = sms.send(message, [formatted_phone])
         logger.info(f"SMS sent to {formatted_phone}. Response: {response}")
         
