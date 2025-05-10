@@ -21,7 +21,7 @@ A Django REST API for managing customers and orders with SMS notifications.
 1. Clone the repository
 2. Create and activate a virtual environment
 3. Install dependencies: `pip install -r requirements.txt`
-4. Set up environment variables
+4. Set up environment variables `use the .env.example as an example`
 5. Run migrations: `python manage.py migrate`
 6. Start the server: `python manage.py runserver`
 
