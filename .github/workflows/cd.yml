@@ -26,3 +26,7 @@ jobs:
         RENDER_API_KEY: ${{ secrets.RENDER_API_KEY }}
       run: |
         render blueprint deploy
+        
+    - name: Check Environment Variables
+      run: |
+        echo "RENDER_API_KEY is: $RENDER_API_KEY"
