@@ -19,14 +19,14 @@ jobs:
       run: |
         curl -fsSL https://cli.render.com/install.sh | bash
         echo "$HOME/.render/bin" >> $GITHUB_PATH
-        export PATH="$HOME/.render/bin:$PATH"
+        # export PATH="$HOME/.render/bin:$PATH"
         
         
     - name: Deploy to Render
       env:
         RENDER_API_KEY: ${{ secrets.RENDER_API_KEY }}
       run: |
-        export PATH="$HOME/.render/bin:$PATH"
+        # export PATH="$HOME/.render/bin:$PATH"
         render blueprint deploy
 
     
