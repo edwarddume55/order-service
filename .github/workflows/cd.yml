@@ -20,10 +20,12 @@ jobs:
         curl -fsSL https://cli.render.com/install.sh | bash
         echo "$HOME/.render/bin" >> $GITHUB_PATH
         export PATH="$HOME/.render/bin:$PATH"
+        which render || { echo "Render CLI installation failed"; exit 1; }
     
     - name: Deploy to Render
       env:
         RENDER_API_KEY: ${{ secrets.RENDER_API_KEY }}
       run: |
         export PATH="$HOME/.render/bin:$PATH"
+        which render || { echo "Render CLI not found in PATH"; exit 1; }
         render blueprint deploy
