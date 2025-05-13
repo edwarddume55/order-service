@@ -4,7 +4,7 @@ from rest_framework import viewsets
 from rest_framework.response import Response
 from .models import Order
 from .serializers import OrderSerializer
-from customers.sms_service import send_sms_notification
+from customers.sms_service import sms_service
 
 
 class OrderViewSet(viewsets.ModelViewSet):
@@ -14,5 +14,5 @@ class OrderViewSet(viewsets.ModelViewSet):
 
     def perform_create(self, serializer):
         order = serializer.save()
-        send_sms_notification(order)
+        sms_service.send_sms_notification(order)
         return Response(serializer.data, status=201)
