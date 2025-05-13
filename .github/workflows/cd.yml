@@ -13,29 +13,15 @@ jobs:
       deployments: write
 
     steps:
-    - uses: actions/checkout@v4
-    
-    - name: Install Render CLI
-      run: |
-        n=0
-        until [ $n -ge 5 ]; do
-          curl -fsSL https://cli.render.com/install.sh | bash && break
-          n=$((n+1))
-          echo "Retrying in 5 seconds..."
-          sleep 5
-        done
-        if ! [ -x "$HOME/.render/bin/render" ]; then
-          echo "Render CLI installation failed after multiple attempts"
-          exit 1
-        fi
-        echo "$HOME/.render/bin" >> $GITHUB_PATH
-        export PATH="$HOME/.render/bin:$PATH"
-        which render || { echo "Render CLI installation failed"; exit 1; }
-    
-    - name: Deploy to Render
-      env:
-        RENDER_API_KEY: ${{ secrets.RENDER_API_KEY }}
-      run: |
-        export PATH="$HOME/.render/bin:$PATH"
-        which render || { echo "Render CLI not found in PATH"; exit 1; }
-        render blueprint deploy
+      - uses: actions/checkout@v4
+
+      - name: Install Render CLI
+        run: |
+          curl -fsSL https://cli.render.com/install.sh | bash
+          echo "$HOME/.render/bin" >> $GITHUB_PATH  
+
+      - name: Deploy to Render with Blueprint
+        env:
+          RENDER_API_KEY: ${{ secrets.RENDER_API_KEY }}
+        run: |
+          render blueprint deploy --yes
