@@ -17,7 +17,17 @@ jobs:
     
     - name: Install Render CLI
       run: |
-        curl -fsSL https://cli.render.com/install.sh | bash
+        n=0
+        until [ $n -ge 5 ]; do
+          curl -fsSL https://cli.render.com/install.sh | bash && break
+          n=$((n+1))
+          echo "Retrying in 5 seconds..."
+          sleep 5
+        done
+        if ! [ -x "$HOME/.render/bin/render" ]; then
+          echo "Render CLI installation failed after multiple attempts"
+          exit 1
+        fi
         echo "$HOME/.render/bin" >> $GITHUB_PATH
         export PATH="$HOME/.render/bin:$PATH"
         which render || { echo "Render CLI installation failed"; exit 1; }
